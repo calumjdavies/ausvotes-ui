@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+  </head>
+  <body>
+    <!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-100">
+  <body class="h-full">
+  ```
+-->
+    {% include 'navbar.html' %} {% if request.path == "/home" %} {% include
+    'latest_election.html' %} {%endif%}
+    <div class="min-h-full">
+      <main>
+        <div class="mx-auto max-w-7xl py-1 sm:px-3 lg:px-8">
+          <div class="overflow-hidden bg-white py-20">
+            <div class="mx-auto max-w-7xl px-3 lg:px-8">
+              <div
+                class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2"
+              >
+                {% block content %} {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  </body>
+</html>
