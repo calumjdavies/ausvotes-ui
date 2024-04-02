@@ -1,0 +1,22 @@
+{% block content %}
+<p class="mt-6 mb-3 text-2xl font-bold tracking-tight text-gray-900">Electorates</p>
+
+<div class="grid grid-cols-3 gap-2">
+  {% for electorate in electorates %}
+
+  <a
+    href="#"
+    class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+  >
+    <h5 class="mt-2 text-2xl font-bold tracking-tight">{{electorate.name}}</h5>
+  <img src="/static/qld-state-electorate-maps/jpgs/{{electorate.name}}.pdf.jpg" />
+
+    <p class="font-normal">
+      Here are the biggest enterprise technology acquisitions of 2021 so far, in
+      reverse chronological order.
+    </p>
+  </a>
+
+  {% endfor %} 
+  </div> {% endblock %}
+</div>

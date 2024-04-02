@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<div class="bg-white py-10 sm:py-10">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Updates
+      </h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">
+        Thoughts on the world of Australian politics
+      </p>
+    </div>
+    <div
+      class="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-6 border-y py-4 border-gray-200 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+    >
+      {% for post in posts %}
+      <article class="flex max-w-xl flex-col items-start justify-between">
+        <a href="/blog/{{post._id}}">
+          <h3
+            class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+          >
+            {{post.title | truncate(40,true,'...')}}
+          </h3>
+        </a>
+
+        <div class="flex items-center gap-x-4 text-xs">
+          <div
+            class="inline-flex justify-center items-center text-center my-2 font-medium py-1 px-3 rounded-full text-gray-700 bg-gray-100 border border-gray-300 bg-gray-700 text-white"
+          >
+            <div class="text-xs font-normal text-white">
+              <a href="/blog/{{post._id}}">{{post.tags}}</a>
+            </div>
+          </div>
+
+          <time datetime="2020-03-16" class="text-gray-500"
+            >{{post.date_posted.strftime('%Y-%m-%d %H:%m')}}</time
+          >
+        </div>
+        <a href="/blog/{{post._id}}">
+          <div class="group relative">
+            <img src="{{post.preview_image}}" alt="" class="h-auto w-50" />
+            <p class="prose mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+              {{post.preview_text | truncate(60,true,'...')}}
+            </p>
+          </div>
+        </a>
+      </article>
+      <!-- More posts... -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

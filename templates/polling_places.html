@@ -1,5 +1,88 @@
-{% extends "base.html" %} {% block content %}
-<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-  Polling Places
-</p>
+{% block content %}
+
+<p class="text-2xl font-bold tracking-tight text-gray-900">Polling Places</p>
+
+<div
+  class="inline-flex justify-center items-center w-10 text-center my-2 font-medium py-1 px-1 rounded-full text-gray-700 bg-gray-100 border border-gray-300 {% if filter.all == 'all' %} bg-gray-700 text-white {% endif %}"
+>
+  <div class="text-xs font-normal">
+    <a href="/polling_places/election_id={{election.id}}&all=all">All</a>
+  </div>
+</div>
+<div
+  class="inline-flex justify-center items-center w-20 text-center my-2 font-medium py-1 px-1 rounded-full text-gray-700 bg-gray-100 border border-gray-300 {% if filter.wheelchair_access == 'Full' %} bg-gray-700 text-white {% endif %}"
+>
+  <div class="text-xs font-normal">
+    <a href="/polling_places/election_id={{election.id}}&wheelchair_access=Full"
+      >Full access</a
+    >
+  </div>
+</div>
+<div
+  class="inline-flex justify-center items-center w-28 text-center my-2 font-medium py-1 px-1 rounded-full text-gray-700 bg-gray-100 border border-gray-300 {% if filter.wheelchair_access == 'Assisted' %} bg-gray-700 text-white {% endif %}"
+>
+  <div class="text-xs font-normal">
+    <a
+      href="/polling_places/election_id={{election.id}}&wheelchair_access=Assisted"
+      >Assisted access</a
+    >
+  </div>
+</div>
+<div
+  class="inline-flex justify-center items-center w-20 text-center my-2 font-medium py-1 px-1 rounded-full text-gray-700 border border-gray-300 bg-gray-100 {% if 'type' in filter.keys() %} bg-gray-700 text-white {% endif %}"
+>
+  <div class="text-xs font-normal">
+    <a
+      href="/polling_places/election_id={{election.id}}&type=PrePollVotingCentre"
+      >Early voting</a
+    >
+  </div>
+</div>
+
+{% for places in polling_places | slice(1) -%}
+<div class="grid grid-cols-2 gap-x-20">
+  {% for place in places %}
+  <ul role="list" class="divide-y divide-gray-100">
+    <li class="flex justify-between gap-x-6 py-5">
+      <div class="flex min-w-0 gap-x-4">
+        <p
+          class="h-12 w-12 flex-none rounded-full font-bold text-center py-3 bg-green-300"
+        >
+          {{place.name[0]}}
+        </p>
+        <div class="min-w-0 flex-auto">
+          <p class="text-sm font-semibold leading-6 text-gray-900">
+            {{place["name"]}}
+          </p>
+          <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+            {{place["address"]["long_name"]}}
+          </p>
+          {% if place.type != "SpecialHospital"%}
+          <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+            {{place["address"]["address_line_1"]}}{% if
+            place["address"]["address_line_2"]%}
+            {{place["address"]["address_line_2"]}}{% endif %},
+            {{place["address"]["suburb"]}} {{place["address"]["state"]}}
+            {{place["address"]["postcode"]}}
+          </p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+        <p class="text-sm leading-6 text-gray-500">
+          Wheelchair access: {{place["wheelchair_access"]}}
+        </p>
+        <p class="text-sm leading-6 text-gray-500">
+          {% if place.type=="PrePollVotingCentre" %} Vote early here {% endif %}
+        </p>
+      </div>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+
+{% endfor %}
+
+<!-- component -->
+
 {% endblock %}

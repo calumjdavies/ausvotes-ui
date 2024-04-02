@@ -1,5 +1,32 @@
 {% extends "base.html" %} {% block content %}
-<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-  Elections
-</p>
+
+<section>
+  <div class="py-5">
+    <div class="mx-auto px-6 max-w-6xl text-gray-500">
+        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Elections
+        </p>
+        {% include "filter.html" %}
+      <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              
+      {% for election in elections %}
+
+        <a href="/elections/{{election['id']}}">
+          <div class="relative">
+            <div class="mt-6 pb-6 rounded-b-[--card-border-radius]">
+              <p class="text-gray-900 font-semibold">
+                {{ election["name"] }}
+              </p>
+              <img src="/static/federal-election.png" />
+            </div>
+          </div>
+        </a>
+
+          {% endfor %}
+      
+    </div>
+  </div>
+</section>
 {% endblock %}
+
+<!-- component -->
